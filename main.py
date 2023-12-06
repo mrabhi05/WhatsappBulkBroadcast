@@ -2,9 +2,9 @@
 # pip install selenium==4.13.0
 from typing import List
 
-VIDEO_PATH = r"C:\Users\bened\OneDrive\Desktop\Ben\fire2023\WhatsApp Video 2023-08-10 at 17.25.50.mp4"
-PHOTU_PATH = r"assets/image/poster1.png"
-PHOTU2_PATH = r"C:\Users\bened\OneDrive\Desktop\Ben\fire2023\WhatsApp Image 2023-08-09 at 10.33.25.jpg"
+# VIDEO_PATH = r"C:\Users\bened\OneDrive\Desktop\Ben\fire2023\WhatsApp Video 2023-08-10 at 17.25.50.mp4"
+PHOTU2_PATH = r"E:\Abhi's\JY\WhatsappBroadcast\assets\image\poster1.png"
+# PHOTU2_PATH = r"C:\Users\bened\OneDrive\Desktop\Ben\fire2023\WhatsApp Image 2023-08-09 at 10.33.25.jpg"
 
 VIDEO_TEXT = """Jai Yeshu!
 
@@ -28,30 +28,39 @@ Abhishek - 93726 25094
 Chalo chalthe hai saath mai जाgo ke liye
 """
 
-PHOTU2_TEXT = """🥳जाgo...जाgo...जाgo🥳
+PHOTU2_TEXT = """Ho-ho-ho! 🎅🎄
+Jesus Youth Mumbai brings to you the joy and warmth of Christmas 🤗 ✨
 
-Abhi tak register nahi Kiya toh kya kiya?? 🫣
+Let\’s yearn for Spiritual Gifts  from Holy Spirit 🎁 on this Christmas 🤩along with lil physical gifts 😊.
 
-The last date for registration for the जाgo National Conference is 15th August, 2023!!!😱
+Your secret Santa would be waiting for you with a gift🎁 , so you don’t forget yours too😬( gifts of not more than Rs.100 ).Bring it with you…
 
-Register now!
+🥳 Pick your best dress 👔👗and get your loved ones 👩‍👩‍👦‍👦🤗
 
-http://bit.ly/MumbaiJaagoRegistration
+Let's have a Holy n Jolly Christmas! 🎊💃  
 
-For any query please contact. 
+Registrations are FREE 🌟🎁 REGISTER NOW 😊👇
+https://bit.ly/RegisterForPS
 
-Jennifer- 97690 31785
-Abhishek - 93726 25094
+PS: It will start with the celebration of the Holy Mass . Kindly reach the venue by sharp 3:30 pm
 
-Chalo chalthe hai saath mai जाgo ke liye
+Don’t be late… it’s our KING’s bday 👑 
+
+'The spirit of the Lord shall rest upon him.' Is 11:2
 """
+
+TEXT = """Hi Testing the Bulk Messenger🎅🎄 Emoji is the problem?!!!"""
+
 import time
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
+import chromedriver_autoinstaller
 
 import csv
+
+chromedriver_autoinstaller.install()
 
 
 # Waits for an element to appear and returns that element
@@ -92,7 +101,7 @@ def wait_for_element_to_disappear(by: By, string: str):
 def paste_content(element: WebElement, content: str):
     driver.execute_script(
         f'''
-const text = {content};
+const text = "{content}";
 const dataTransfer = new DataTransfer();
 dataTransfer.setData('text', text);
 const event = new ClipboardEvent('paste', {{
@@ -159,16 +168,16 @@ wait_for_element(By.XPATH, '//canvas[@role="img"]')
 wait_for_element(By.XPATH, '//div[@role="textbox" and @contenteditable="true"]')
 
 # Reads data from CSV
-with open('data.csv') as file_obj:
+with open('assets\contacts\data.csv') as file_obj:
     reader_obj = csv.reader(file_obj)
 
     # Iterate over each row in the csv
     # file using reader object
     for row in reader_obj:
-        phone = parse_number(row[5])
-        gender = row[8]
+        phone = parse_number(row[1])
+        # gender = row[8]
         # Sends only if person is female
-        if phone and gender == 'Female':
+        if phone:
             # Extract fist name from CSV
             first_name = row[1].strip().split(' ')[0]
             # Navigate to their chat
@@ -176,6 +185,6 @@ with open('data.csv') as file_obj:
             # Wait for chat to load
             textbox = wait_for_element(By.XPATH, '//div[@title="Type a message"]')
             # Send message
-            send_media(PHOTU_PATH)
-            send_media(VIDEO_PATH, VIDEO_TEXT)
-            send_media(PHOTU2_PATH, PHOTU2_TEXT)
+            # send_media(PHOTU_PATH)
+            # send_media(VIDEO_PATH, VIDEO_TEXT)
+            send_media(PHOTU2_PATH, VIDEO_TEXT)
