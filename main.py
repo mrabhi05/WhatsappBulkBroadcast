@@ -31,7 +31,7 @@ Chalo chalthe hai saath mai जाgo ke liye
 PHOTU2_TEXT = """Ho-ho-ho! 🎅🎄
 Jesus Youth Mumbai brings to you the joy and warmth of Christmas 🤗 ✨
 
-Let\’s yearn for Spiritual Gifts  from Holy Spirit 🎁 on this Christmas 🤩along with lil physical gifts 😊.
+Let’s yearn for Spiritual Gifts  from Holy Spirit 🎁 on this Christmas 🤩along with lil physical gifts 😊.
 
 Your secret Santa would be waiting for you with a gift🎁 , so you don’t forget yours too😬( gifts of not more than Rs.100 ).Bring it with you…
 
@@ -56,11 +56,11 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
-import chromedriver_autoinstaller
+from selenium.webdriver.chrome.service import Service as ChromeService
+# from webdriver_manager.chrome import ChromeDriverManager
+
 
 import csv
-
-chromedriver_autoinstaller.install()
 
 
 # Waits for an element to appear and returns that element
@@ -110,7 +110,7 @@ const event = new ClipboardEvent('paste', {{
 }});
 arguments[0].dispatchEvent(event)
 ''',
-        element)
+        element,)
 
 def get_last_message() -> WebElement:
     messages = wait_for_elements(By.XPATH, '//div[@role="application"]/div[@role="row"]/div')
@@ -160,7 +160,8 @@ def parse_number(number):
     elif (len(raw_no) == 10):
         phone = '91' + raw_no
     return phone
-
+# import chromedriver_autoinstaller
+# chromedriver_autoinstaller.install()
 
 driver = webdriver.Chrome()
 driver.get("https://web.whatsapp.com/")
@@ -187,4 +188,4 @@ with open('assets\contacts\data.csv') as file_obj:
             # Send message
             # send_media(PHOTU_PATH)
             # send_media(VIDEO_PATH, VIDEO_TEXT)
-            send_media(PHOTU2_PATH, VIDEO_TEXT)
+            send_media(PHOTU2_PATH, PHOTU2_TEXT)
